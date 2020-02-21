@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Komunikator</title>
+</head>
+<body>
+    <p id="akapit"></p>
+	Użytkownik: <input id="Odbiorca" value="Agata" />
+	Treść: <input id="Tresc" value="" />
+	<button onclick="wysylanie()">Wyślij wiadomość</button>
+		  <script>
+		  
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					resp = this.responseText;
+					document.getElementById("akapit").innerHTML = resp;
+				}
+			};
+			
+			setInterval(function() {
+				odczyt();
+			}, 1000);
+
+			function wysylanie() {
+				xhttp.open("GET", "instancjaWysylanie.php?odbiorca="+document.getElementById("Odbiorca").value+"&tresc="+document.getElementById("Tresc").value+"", true); 
+				xhttp.send();
+			}
+			
+			function odczyt() {
+				xhttp.open("GET", "instancjaOdczyt.php?rozmowca="+document.getElementById("Odbiorca").value+"", true); 
+				xhttp.send();
+			}
+		  </script>
+		
+</body>
+
+</html>
